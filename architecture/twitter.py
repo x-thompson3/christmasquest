@@ -2,6 +2,7 @@ import tweepy
 
 
 class TwitterBot:
+    """Class for managing twitter API calls and responses"""
     def __init__(self):
         CONSUMER_KEY = self.read_from_secret('consumer_key')
         CONSUMER_SECRET = self.read_from_secret('consumer_secret')
@@ -41,3 +42,10 @@ class TwitterBot:
         :return:
         """
         pass
+
+
+class MyStreamListener(tweepy.StreamListener):
+    def on_error(self, status_code):
+        if status_code == 420:
+            # returning False in on_data disconnects the stream
+            return False
