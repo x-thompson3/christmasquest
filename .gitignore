@@ -2,3 +2,6 @@ secret/*
 christmas18/*
 internal.log
 .idea/
+.pytest_cache
+*/.pytest_cache/
+*/__pycache__
