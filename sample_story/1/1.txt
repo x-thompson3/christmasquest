@@ -1,5 +1,0 @@
-Here's the text of riddle 1.
-==
-The Answer
-==
-Some nifty text returned for correctly answering the riddle.

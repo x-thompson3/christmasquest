@@ -1,0 +1,3 @@
+Here's the text of riddle 2.
+==
+{'start': 'next', 'another': 'another.txt'}

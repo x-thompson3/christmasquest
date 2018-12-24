@@ -1,10 +1,10 @@
-# import architecture.game as game
-#
-#
-# def test_get_story():
-#     g_obj = game.GameEngine(story_dir="sample_story")
-#     assert g_obj.get_current_story() == "Here's the text of riddle 1."
-#
+import architecture.game as game
+
+
+def test_get_story():
+    g_obj = game.GameEngine(story_dir="sample_story")
+    assert g_obj.get_current_story() == "Here's the text of riddle 1."
+
 #
 # def test_answer_set_single():
 #     g_obj = game.GameEngine(story_dir="sample_story")

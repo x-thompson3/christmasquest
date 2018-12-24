@@ -1,5 +1,0 @@
-Here's a choices question.
-==
-Choice 1 | Choice 2 | Choice 3
-==
-Here's the result of your choices!
