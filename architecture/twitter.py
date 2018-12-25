@@ -21,6 +21,7 @@ class TwitterBot(tweepy.StreamListener):
 
         self.player = self.read_from_secret('twitter_id')
         self.DM = self.read_from_secret('master')
+        self.kill_str = self.read_from_secret('kill')
 
     def read_from_secret(self, fname):
         ret = ""
@@ -59,11 +60,10 @@ class TwitterBot(tweepy.StreamListener):
         my_stream.filter(track=[self.name])
 
     def on_status(self, status):
-        print(status)
         if status.author.id_str in [self.player, self.DM]:
             if '!ans' in status.text:
                 self.respond_to_msg(status.text)
-            elif 'donezo' in status.text:
+            elif self.kill_str in status.text:
                 self.send_tweet("Bot was successfully switched off.")
                 return False
         return True
@@ -76,4 +76,5 @@ class TwitterBot(tweepy.StreamListener):
         self.send_tweet("It's not working :(")
 
     def begin(self):
-        pass
+        self.send_tweet(self.game_engine.get_current_story())
+        self.start_listening()

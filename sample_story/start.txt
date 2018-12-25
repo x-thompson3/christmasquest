@@ -1,3 +1,3 @@
-Here's the text of riddle 1.
+Here's the start of Sample Story.
 ==
 {'start': 'next'}

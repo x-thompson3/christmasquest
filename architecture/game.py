@@ -61,5 +61,3 @@ if __name__ == "__main__":
     print(ge.check_answer("any key should do"))
     print(ge.check_answer("didgeridoo kazoo"))
     print(ge.check_answer("middle door"))
-    print(ge.check_answer(""))
-    print(len(ge.get_current_story()))
