@@ -38,7 +38,7 @@ class TwitterBot(tweepy.StreamListener):
         """
         self.api.update_status(tweet_text)
 
-    def respond_to_ans(self, message):
+    def respond_to_msg(self, message):
         """
         Called when someone tweets at the bot with a "!ans"
         :return:
@@ -46,15 +46,8 @@ class TwitterBot(tweepy.StreamListener):
         print(f"\tReceived answer: '{message}'")
         filt_msg = message.replace(self.name, "").replace("!ans", "")
         result = self.game_engine.check_answer(filt_msg)
-        pass
-
-    def respond_to_choice(self, message):
-        """
-        Called when someone tweets at the bot with a "!choice"
-        :return:
-        """
-        print(f"\tReceived choice: '{message}'")
-        pass
+        if result != "":
+            self.send_tweet(result)
 
     def start_listening(self):
         """
@@ -69,9 +62,7 @@ class TwitterBot(tweepy.StreamListener):
         print(status)
         if status.author.id_str in [self.player, self.DM]:
             if '!ans' in status.text:
-                self.respond_to_choice(status.text)
-            elif '!choice' in status.text:
-                self.respond_to_choice(status.text)
+                self.respond_to_msg(status.text)
             elif 'donezo' in status.text:
                 self.send_tweet("Bot was successfully switched off.")
                 return False
