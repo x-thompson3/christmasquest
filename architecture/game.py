@@ -1,4 +1,5 @@
 import ast
+import json
 import os.path
 
 DEFAULT_STORY = "christmas21"
@@ -14,36 +15,41 @@ class GameEngine:
         else:
             self.story_dir = story_dir
 
+        self.story_json = json.loads("{}")
         self.index = index
         self.story_text = "No Story Test Yet."
         self.answer_dict = {}
-        self.action = None
+        self.action_list = []
 
     def get_current_story(self):
         """
         Pull the current story text and answer into class variables
         :return:
         """
-        filename = os.path.join(os.path.join(f'{BASE_PATH}', f'{self.story_dir}'), f'{self.index}.txt')
+        filename = os.path.join(os.path.join(f'{BASE_PATH}', f'{self.story_dir}'), f'{self.index}.json')
         with open(filename, 'r') as f:
-            lines = f.read().split("==")
-            self.story_text = lines[0].strip()
-            try:
-                self.answer_dict = ast.literal_eval(lines[1].strip())
-            except Exception as e:
-                print(f"Something went wrong when reading answer_dictionary: {str(e)}")
-                self.answer_dict = {}
+            self.story_json = json.load(f)
+            self.story_text = self.story_json['story_text']
+            self.answer_dict = self.story_json['answer_dict']
+            self.action_list = self.story_json['action_list']
 
-            try:
-                exec(lines[2].strip())
-            except Exception as e:
-                print(f"Something went wrong when reading action: {str(e)}")
+            # lines = f.read().split("==")
+            # try:
+            #     self.answer_dict = ast.literal_eval(lines[1].strip())
+            # except Exception as e:
+            #     print(f"Something went wrong when reading answer_dictionary: {str(e)}")
+            #     self.answer_dict = {}
+            #
+            # try:
+            #     exec(lines[2].strip())
+            # except Exception as e:
+            #     print(f"Something went wrong when reading action: {str(e)}")
 
         return self.story_text
 
     def set_story(self, i):
         """Set the current story text to the given values, and check the file is extant."""
-        filename = os.path.join(os.path.join(f'{BASE_PATH}', f'{self.story_dir}'), f'{i}.txt')
+        filename = os.path.join(os.path.join(f'{BASE_PATH}', f'{self.story_dir}'), f'{i}.json')
         if os.path.isfile(filename):
             self.index = i
             return self.get_current_story()

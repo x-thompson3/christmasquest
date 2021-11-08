@@ -1,0 +1,8 @@
+{
+  "story_text": "End of the story",
+  "answer_dict": {
+  },
+  "action_list": [
+    "print('Goodbye world')"
+  ]
+}

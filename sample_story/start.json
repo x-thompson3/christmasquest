@@ -1,0 +1,9 @@
+{
+  "story_text": "Here's the text of riddle 1.",
+  "answer_dict": {
+    "start": "next"
+  },
+  "action_list": [
+    "print('Hello World - START, JSON')"
+  ]
+}
