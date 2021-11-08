@@ -1,3 +1,5 @@
 Here's the start of Sample Story.
 ==
 {'start': 'next'}
+==
+{}
