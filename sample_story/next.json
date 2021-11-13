@@ -1,5 +1,7 @@
 {
-  "story_text": "End of the story",
+  "story_text": [
+    "End of the story"
+  ],
   "answer_dict": {
   },
   "action_list": [

@@ -76,5 +76,5 @@ class TwitterBot(tweepy.StreamListener):
         self.send_tweet("It's not working :(")
 
     def begin(self):
-        self.send_tweet(self.game_engine.get_current_story())
+        self.send_tweet(self.game_engine.read_story_from_index())
         self.start_listening()

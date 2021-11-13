@@ -1,5 +1,7 @@
 {
-  "story_text": "Here's the text of riddle 1.",
+  "story_text": [
+    "Here's the text of riddle 1"
+  ],
   "answer_dict": {
     "start": "next"
   },

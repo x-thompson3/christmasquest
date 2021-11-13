@@ -1,0 +1,34 @@
+{
+  "files_list": [
+    {
+      "password": "start",
+      "files_to_move": [
+
+      ],
+      "prereq_files": [
+
+      ],
+      "text": "Well done. That's the first one. Maybe try \"middle\" next?"
+    },
+    {
+      "password": "middle",
+      "files_to_move": [
+
+      ],
+      "prereq_files": [
+
+      ],
+      "text": "Well done. That's the second one. Maybe try \"middle\" next?"
+    },
+    {
+      "password": "end",
+      "files_to_move": [
+
+      ],
+      "prereq_files": [
+
+      ],
+      "text": "Well done. That's all of them."
+    }
+  ]
+}

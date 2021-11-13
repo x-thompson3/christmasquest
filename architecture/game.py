@@ -20,39 +20,32 @@ class GameEngine:
         self.story_text = "No Story Test Yet."
         self.answer_dict = {}
         self.action_list = []
+        self.read_story_from_index()
 
-    def get_current_story(self):
-        """
-        Pull the current story text and answer into class variables
-        :return:
-        """
+    def read_story_from_index(self):
+        """Pull the current story text and answer into class variables"""
         filename = os.path.join(os.path.join(f'{BASE_PATH}', f'{self.story_dir}'), f'{self.index}.json')
         with open(filename, 'r') as f:
             self.story_json = json.load(f)
-            self.story_text = self.story_json['story_text']
+            self.story_text = "\n".join(self.story_json['story_text'])
             self.answer_dict = self.story_json['answer_dict']
             self.action_list = self.story_json['action_list']
-
-            # lines = f.read().split("==")
-            # try:
-            #     self.answer_dict = ast.literal_eval(lines[1].strip())
-            # except Exception as e:
-            #     print(f"Something went wrong when reading answer_dictionary: {str(e)}")
-            #     self.answer_dict = {}
-            #
-            # try:
-            #     exec(lines[2].strip())
-            # except Exception as e:
-            #     print(f"Something went wrong when reading action: {str(e)}")
-
         return self.story_text
+
+    def execute_actions(self):
+        """Execute the list of actions in order"""
+        for command_str in self.action_list:
+            try:
+                exec(command_str.strip())
+            except Exception as e:
+                print(f"Something went wrong when reading action ({command_str}): {str(e)}")
 
     def set_story(self, i):
         """Set the current story text to the given values, and check the file is extant."""
         filename = os.path.join(os.path.join(f'{BASE_PATH}', f'{self.story_dir}'), f'{i}.json')
         if os.path.isfile(filename):
             self.index = i
-            return self.get_current_story()
+            return self.read_story_from_index()
         else:
             raise Exception(f"Error! {filename} is not a story file")
 
@@ -60,9 +53,11 @@ class GameEngine:
         """Check that answer_in is within the answer_set, return "incorrect answer" or the answer_text"""
         if len(self.answer_dict) == 0:
             return ""
+        if '<ANY>' in self.answer_dict.keys():
+            return self.set_story(self.answer_dict["<ANY>"])
         for possible in self.answer_dict.keys():
-            if possible in answer_in:
-                return self.set_story(self.answer_dict[possible])
+            if possible.lower() in answer_in.lower():
+                return self.set_story(self.answer_dict[possible.lower()])
         else:
             return "Incorrect Answer"
 
@@ -77,5 +72,5 @@ class GameEngine:
 
 if __name__ == "__main__":
     ge = GameEngine()
-    print(ge.get_current_story())
+    print(ge.read_story_from_index())
     print(ge.check_answer("start"))
