@@ -1,6 +1,7 @@
-import ast
 import json
 import os.path
+
+import file_utils
 
 DEFAULT_STORY = "christmas21"
 BASE_PATH = os.path.expanduser("..")
@@ -9,7 +10,7 @@ BASE_PATH = os.path.expanduser("..")
 class GameEngine:
     """Class for holding current game state and a log of the adventure"""
     def __init__(self, story_dir="christmas21", index="start"):
-        if not os.path.isdir(f"{BASE_PATH}/{story_dir}"):
+        if not os.path.isdir(os.path.join(f"{BASE_PATH}",f"{story_dir}")):
             print(f"Story directory '{story_dir}' does not exist")
             self.story_dir = DEFAULT_STORY
         else:
@@ -23,7 +24,7 @@ class GameEngine:
         self.read_story_from_index()
 
     def read_story_from_index(self):
-        """Pull the current story text and answer into class variables"""
+        """Pull the current story information into class variables"""
         filename = os.path.join(os.path.join(f'{BASE_PATH}', f'{self.story_dir}'), f'{self.index}.json')
         with open(filename, 'r') as f:
             self.story_json = json.load(f)
@@ -72,5 +73,9 @@ class GameEngine:
 
 if __name__ == "__main__":
     ge = GameEngine()
-    print(ge.read_story_from_index())
-    print(ge.check_answer("start"))
+    ge.read_story_from_index()
+    print(ge.story_text)
+    ge.execute_actions()
+    ge.check_answer("start")
+    print(ge.story_text)
+
