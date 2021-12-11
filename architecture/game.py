@@ -10,11 +10,11 @@ BASE_PATH = os.path.expanduser("..")
 class GameEngine:
     """Class for holding current game state and a log of the adventure"""
     def __init__(self, story_dir="christmas21", index="start"):
-        if not os.path.isdir(os.path.join(f"{BASE_PATH}",f"{story_dir}")):
-            print(f"Story directory '{story_dir}' does not exist")
-            self.story_dir = DEFAULT_STORY
+        full_path = os.path.join(f"{BASE_PATH}", f"{story_dir}")
+        if not os.path.isdir(full_path):
+            raise NotADirectoryError(f"Story directory '{full_path}' does not exist")
         else:
-            self.story_dir = story_dir
+            self.story_dir = full_path
 
         self.story_json = json.loads("{}")
         self.index = index
@@ -25,7 +25,7 @@ class GameEngine:
 
     def read_story_from_index(self):
         """Pull the current story information into class variables"""
-        filename = os.path.join(os.path.join(f'{BASE_PATH}', f'{self.story_dir}'), f'{self.index}.json')
+        filename = os.path.join(f'{self.story_dir}', f'{self.index}.json')
         with open(filename, 'r') as f:
             self.story_json = json.load(f)
             self.story_text = "\n".join(self.story_json['story_text'])
@@ -43,7 +43,7 @@ class GameEngine:
 
     def set_story(self, i):
         """Set the current story text to the given values, and check the file is extant."""
-        filename = os.path.join(os.path.join(f'{BASE_PATH}', f'{self.story_dir}'), f'{i}.json')
+        filename = os.path.join(f'{self.story_dir}', f'{i}.json')
         if os.path.isfile(filename):
             self.index = i
             return self.read_story_from_index()
@@ -65,7 +65,7 @@ class GameEngine:
     def logit(self, message, public=False):
         """Log the results to the internal.log"""
         log_name = 'The_Story_Thus_Far.log' if public else 'internal.log'
-        filename = os.path.join(os.path.join(f'{BASE_PATH}', f'{self.story_dir}'), f'{log_name}.txt')
+        filename = os.path.join(f'{self.story_dir}', f'{log_name}.txt')
         with open(filename, "a") as f:
             f.write(message)
             f.write('\n')
