@@ -4,6 +4,7 @@ import os.path
 import file_utils
 
 DEFAULT_STORY = "christmas21"
+# BASE_PATH = os.path.join(os.path.expanduser("~"), "Documents")
 BASE_PATH = os.path.expanduser("..")
 
 
@@ -54,8 +55,8 @@ class GameEngine:
         """Check that answer_in is within the answer_set, return "incorrect answer" or the answer_text"""
         if len(self.answer_dict) == 0:
             return ""
-        if '<ANY>' in self.answer_dict.keys():
-            return self.set_story(self.answer_dict["<ANY>"])
+        if '<any>' in self.answer_dict.keys():
+            return self.set_story(self.answer_dict["<any>"])
         for possible in self.answer_dict.keys():
             if possible.lower() in answer_in.lower():
                 return self.set_story(self.answer_dict[possible.lower()])
