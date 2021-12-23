@@ -1,6 +1,4 @@
-import random
-
-from architecture.game import GameEngine
+from game import GameEngine
 
 if __name__ == "__main__":
     game = GameEngine()
@@ -19,4 +17,5 @@ if __name__ == "__main__":
                 print("TODO: Complete Hint List")
             elif "help" in user_input.lower():
                 print("No.")
+    print()
     print(game.story_text)

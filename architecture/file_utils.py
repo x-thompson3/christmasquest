@@ -54,10 +54,10 @@ def cp_file_n_times(source_dir, src_file, dest_dir, n):
     """
     This function will copy a src_file to the specified new destination N times, appending a number to prevent overwrite
     """
-    print(f"# Copying {src_file} to {dest_dir} ", end="", flush=True)
     for i in range(n):
         try:
-            cp_file(source_dir=source_dir, src_file=src_file.replace(".", f"{i+1}."), dest_dir=dest_dir, debug=False)
+            copyfile(os.path.join(os.path.expanduser(source_dir), src_file),
+                     os.path.join(os.path.expanduser(dest_dir), src_file.replace(".", f"_{i+1}.")))
         except Exception as e:
             print(f"Failed to copy: {e}")
 
@@ -69,15 +69,18 @@ def rm_file(target_file):
     pass
 
 
-def set_wallpaper(filepath):
+def set_wallpaper(source_dir, src_file):
     """
     programatically set the desktop wallpaper to the specified file
+    # NEEDS AN ABSOLUTE PATH
     :param filepath:
     :return:
     """
+    filepath = os.path.join(os.path.expanduser(source_dir), src_file)
     try:
         SPI_SETDESKWALLPAPER = 0x14     # which command (20)
         SPIF_UPDATEINIFILE   = 0x2      # forces instant update
-        ctypes.windll.user32.SystemParametersInfoW(SPI_SETDESKWALLPAPER, 0, filepath, SPIF_UPDATEINIFILE)
+        ret_val = ctypes.windll.user32.SystemParametersInfoW(SPI_SETDESKWALLPAPER, 0, filepath, SPIF_UPDATEINIFILE)
+        return ret_val
     except Exception as e:
         print(f"Failed to set desktop background: {e}")

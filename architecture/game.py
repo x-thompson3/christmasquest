@@ -10,8 +10,8 @@ BASE_PATH = os.path.expanduser("..")
 
 class GameEngine:
     """Class for holding current game state and a log of the adventure"""
-    def __init__(self, story_dir="christmas21", index="start"):
-        full_path = os.path.join(f"{BASE_PATH}", f"{story_dir}")
+    def __init__(self, source_path=BASE_PATH, story_dir="christmas21", index="start"):
+        full_path = os.path.join(f"{source_path}", f"{story_dir}")
         if not os.path.isdir(full_path):
             raise NotADirectoryError(f"Story directory '{full_path}' does not exist")
         else:
