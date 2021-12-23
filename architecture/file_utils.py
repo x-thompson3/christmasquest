@@ -57,8 +57,7 @@ def cp_file_n_times(source_dir, src_file, dest_dir, n):
     print(f"# Copying {src_file} to {dest_dir} ", end="", flush=True)
     for i in range(n):
         try:
-            copyfile(os.path.join(os.path.expanduser(source_dir), src_file),
-                     os.path.join(os.path.expanduser(dest_dir), src_file.replace(".", f"{i+1}.")))
+            cp_file(source_dir=source_dir, src_file=src_file.replace(".", f"{i+1}."), dest_dir=dest_dir, debug=False)
         except Exception as e:
             print(f"Failed to copy: {e}")
 
