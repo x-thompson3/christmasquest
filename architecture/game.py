@@ -4,8 +4,8 @@ import os.path
 import file_utils
 
 DEFAULT_STORY = "christmas21"
-# BASE_PATH = os.path.join(os.path.expanduser("~"), "Documents")
-BASE_PATH = os.path.expanduser("..")
+BASE_PATH = os.path.join(os.path.expanduser("~"), "Documents")
+# BASE_PATH = os.path.expanduser("..")
 
 
 class GameEngine:
